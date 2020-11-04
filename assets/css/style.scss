@@ -4,7 +4,31 @@
 @import 'jekyll-theme-cayman';
 
 h1 {
-    a {
-        color: white
+  a {
+      color: white
+  }
+}
+
+.post-preview {
+  margin-left: 0;
+  list-style: none;
+  
+  .post-meta {
+    font-style: italic;
+  }
+}
+
+.pager {
+    margin: 20px 0 0;
+    padding: 0px;
+    ul .pagination {
+        li {
+            .previous {
+                float: left;
+            }
+            .next {
+                float: right;
+            }
+        }
     }
 }
