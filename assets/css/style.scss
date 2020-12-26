@@ -12,23 +12,38 @@ h1 {
 .post-preview {
   margin-left: 0;
   list-style: none;
-  
   .post-meta {
     font-style: italic;
   }
 }
 
 .pager {
-    margin: 20px 0 0;
-    padding: 0px;
-    ul .pagination {
-        li {
-            .previous {
-                float: left;
-            }
-            .next {
-                float: right;
-            }
-        }
-    }
+  margin: 20px 0;
+  padding-left: 0;
+  text-align: center;
+  list-style: none;
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  color: $header-bg-color;
+  background-color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  border-color: $header-bg-color;
+  border-radius: 0.3rem;
+  padding: 15px 25px;
+
+  &:hover {
+    color: white;
+    text-decoration: none;
+    background-color: $header-bg-color;
+    border-color: $header-bg-color;
+  }
 }

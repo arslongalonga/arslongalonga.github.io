@@ -28,20 +28,18 @@ layout: default
 
   <!-- Pager -->
   {% if paginator.total_pages > 1 %}
-    <div class="pager">
-      <ul class="pagination">
+    <ul class="pager">
       {%- if paginator.previous_page %}
-        <li class="previous">
-          <a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">Newer Posts</a>
-        </li>
+      <li class="previous">
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="btn">&larr; Newer Posts</a>
+      </li>
       {%- endif %}
       {%- if paginator.next_page %}
-        <li class="next">
-          <a href="{{ paginator.next_page_path | relative_url }}" class="next-page">Older Posts</a>
-        </li>
+      <li class="next">
+        <a href="{{ paginator.next_page_path | relative_url }}" class="btn">Older Posts &rarr;</a>
+      </li>
       {%- endif %}
-      </ul>
-    </div>
+    </ul>
   {%- endif %}
 
 </div>
