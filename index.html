@@ -1,45 +1,146 @@
 ---
-layout: default
+layout: page
 ---
 
-<div class="home">
-  <h1 class="page-heading">{{ page.title }}</h1>
+<div class="container">
+  <div class="row mb-5">
+    <div class="col-md-8">
+      <!-- Post Listing -->
+      {%- for post in paginator.posts -%}
+      <div
+        class="mb-5 p-4 border border-success border-2 rounded bg-light shadow-sm"
+      >
+        <h2 class="mb-1">
+          <a
+            class="link-success text-decoration-none"
+            href="{{ post.url | relative_url }}"
+          >
+            {{ post.title | escape }}
+          </a>
+        </h2>
+        {%- if post.subtitle -%}
+        <h5 class="fw-light my-0">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            fill="currentColor"
+            class="bi bi-chat-square-quote me-2"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"
+            />
+            <path
+              d="M7.066 4.76A1.665 1.665 0 0 0 4 5.668a1.667 1.667 0 0 0 2.561 1.406c-.131.389-.375.804-.777 1.22a.417.417 0 1 0 .6.58c1.486-1.54 1.293-3.214.682-4.112zm4 0A1.665 1.665 0 0 0 8 5.668a1.667 1.667 0 0 0 2.561 1.406c-.131.389-.375.804-.777 1.22a.417.417 0 1 0 .6.58c1.486-1.54 1.293-3.214.682-4.112z"
+            />
+          </svg>
+          {{ post.subtitle | escape }}
+        </h5>
+        {%- endif -%}
+        <p class="text-secondary mt-2">
+          Posted {% if post.author %}by {{ post.author }} {% endif %} on {{
+          post.date | date: "%B %-d, %Y" }}
+        </p>
+        {{ post.content | strip_html | truncate:200 }}
+        <p class="my-2 text-end">
+          <a class="link-success" href="{{ post.url | relative_url }}">
+            Read More...
+          </a>
+        </p>
+      </div>
+      {%- endfor -%}
 
-  <!-- Post Listing -->
-  {%- for post in paginator.posts -%}
-  <div class="post-preview">
-    <a class="post-link" href="{{ post.url | relative_url }}">
-    <h2>
-        {{ post.title | escape }}
-    </h2>
-    {%- if post.subsitle -%}
-    <h3>
-      {{ post.subtitle | escape }}
-    </h3>
-    {%- endif -%}
-    </a>
-      {{ post.content | strip_html | truncate:200 }}
-    <p class="post-meta">
-      Posted {% if post.author %}by {{ post.author }} {% endif %} on {{ post.date | date: "%B %-d, %Y" }}
-    </p>
+      <!-- Pager -->
+      <nav aria-label="page navigation d-flex">
+        {% if paginator.total_pages > 1 %}
+        <ul class="pagination">
+          {%- if paginator.previous_page %}
+          <li class="page-item me-auto">
+            <a
+              href="{{ paginator.previous_page_path | relative_url }}"
+              class="btn btn-outline-success"
+              >&larr; Newer Posts</a
+            >
+          </li>
+          {%- endif %} {%- if paginator.next_page %}
+          <li class="page-item">
+            <a
+              href="{{ paginator.next_page_path | relative_url }}"
+              class="btn btn-outline-success"
+              >Older Posts &rarr;</a
+            >
+          </li>
+          {%- endif %}
+        </ul>
+        {%- endif %}
+      </nav>
+    </div>
+
+    <div class="col-md-4">
+      <!-- About Me -->
+      <div class="p-4 pt-2 mb-3 bg-light rounded">
+        <h4 class="fst-italic mb-3 text-dark">About</h4>
+        <p class="mb-2">📍 Washington, DC</p>
+        <p class="mb-2">👩🏻‍💻 i-love-kebab-and-kebab-case</p>
+        <p class="mb-2">🐱 First of her name, mother of a tuxedo cat.</p>
+      </div>
+
+      <!-- Archives -->
+      <div class="p-4">
+        <h4 class="fst-italic text-dark">Featured Tags</h4>
+          | {% capture tags %} {% for tag in site.tags %} {% if tag[1].size > 1 %}
+            <a
+              data-sort="{{ site.posts.size | minus: tag[1].size | prepend: '0000' | slice: -4, 4 }}"
+              data-encode="{{ tag[0] | strip | url_encode }}"
+              href="{{ site.baseurl }}/archive/?tag={{ tag[0] | url_encode }}"
+              title="{{ tag[0] }}"
+              rel="{{ tag[1].size }}"
+              class="text-decoration-none"
+              >
+              {{ tag[0] }}
+            </a> |
+          {% endif %} {% endfor %} {% endcapture %} {{tags | split: '__SEPERATOR__' | sort}}
+        </ul>
+      </div>
+
+      <!-- Links -->
+      <div class="p-4">
+        <h4 class="fst-italic text-dark">Elsewhere</h4>
+        <ol class="list-unstyled mb-0">
+          <li class="px-1">
+            <a href="https://www.douban.com/people/d_minor/" class="text-decoration-none" target="_blank">
+              <img src="assets/images-static/social-douban.png" alt="logo-douban" width="16" height="16" class="mb-1 me-1">
+              庸爻儿
+            </a>
+          </li>
+          <li class="px-1">
+            <a href="https://weibo.com/dminor" class="text-decoration-none" target="_blank">
+              <img src="assets/images-static/social-weibo.svg" alt="logo-weibo" width="16" height="16" class="mb-1 me-1">
+              庸爻儿
+            </a>
+          </li>
+          <li class="px-1">
+            <a href="https://www.xiaohongshu.com/user/profile/5c3c838b0000000005033ef6" class="text-decoration-none" target="_blank">
+              <img src="assets/images-static/social-red.png" alt="logo-red" width="16" height="16" class="mb-1 me-1">
+              星尘小姐
+            </a>
+          </li>
+          <li class="px-1">
+            <span class="">
+              <img src="assets/images-static/social-wechat.svg" alt="logo-wechat" width="16" height="16" class="mb-1 me-1">
+              lady_is_ziggy
+            </span>
+            <img src="assets/images-static/social-wechat-qr.jpeg" width="100%" class="mb-0" />
+          </li>
+        </ol>
+      </div>
+
+      <div class="p-4 d-none d-md-block">
+        <a href="https://follow.it/arslongalonga?action=followPub" target="_blank">
+          <img width="100%" src="assets/images-static/follow-me.svg" alt="Follow Me" class="my-3" />
+        </a>
+      </div>
+    </div>
   </div>
-  <hr>
-  {%- endfor -%}
-
-  <!-- Pager -->
-  {% if paginator.total_pages > 1 %}
-    <ul class="pager">
-      {%- if paginator.previous_page %}
-      <li class="previous">
-        <a href="{{ paginator.previous_page_path | relative_url }}" class="btn">&larr; Newer Posts</a>
-      </li>
-      {%- endif %}
-      {%- if paginator.next_page %}
-      <li class="next">
-        <a href="{{ paginator.next_page_path | relative_url }}" class="btn">Older Posts &rarr;</a>
-      </li>
-      {%- endif %}
-    </ul>
-  {%- endif %}
-
 </div>

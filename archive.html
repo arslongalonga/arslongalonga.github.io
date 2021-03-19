@@ -1,0 +1,82 @@
+---
+title: Archive
+layout: page
+description: what i've been doing so far
+---
+<!-- Tags -->
+<div id="tag_cloud" class="js-tags mb-4">
+  <button role="button" class="tag-button--all btn btn-outline-warning btn-sm me-2 my-1 rounded-pill" data-encode="">
+    Show All
+    <sup>{{site.posts.size}}</sup>
+  </button>
+
+  {% capture tags %}
+  {% for tag in site.tags %}
+  <button 
+    data-sort="{{ site.posts.size | minus: tag[1].size | prepend: '0000' | slice: -4, 4 }}"
+    data-encode="{{ tag[0] | strip | url_encode }}"
+    class="tag-button btn btn-outline-info btn-sm me-2 my-1 rounded-pill"
+    title="{{ tag[0] }}"
+    rel="{{ tag[1].size }}">
+    {{ tag[0] }}
+    <sup>{{tag[1].size}}</sup>
+  </button>
+  __SEPERATOR__ 
+  {% endfor %}
+  {% endcapture %}
+  {{ tags | split:'__SEPERATOR__' | sort }}
+</div>
+
+<!-- Article List -->
+<div class="js-result d-none mb-5">
+{%- assign _sorted_list = site.posts -%}
+{%- assign _sorted_list = _sorted_list | sort: 'date' -%}
+{%- assign _sorted_list = _sorted_list | reverse -%}
+
+
+{%- for _article in _sorted_list -%}
+  {%- assign _tags = '' -%}
+  {%- for _tag in _article.tags -%}
+    {%- assign _tag_encode = _tag | strip | url_encode -%}
+    {%- if forloop.last -%}
+      {%- assign _tags = _tags | append: _tag_encode -%}
+    {%- else -%}
+      {%- assign _tags = _tags | append: _tag_encode | append: ',' -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- assign _currentdate = _article.date | date: '%Y' -%}
+  {%- if _currentdate != _date -%}
+      {%- unless forloop.first -%}</section>{%- endunless -%}
+    <section>
+      <div class="mt-5 mb-3 d-flex justify-content-center">
+        <span class="display-5 text-success">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+            <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+          </svg>
+          {{ _currentdate }}
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+            <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+          </svg>
+        </span>
+      </div>
+        {%- assign _date = _currentdate -%}
+  {%- endif -%}
+
+      <div class="item border-bottom mt-4" data-tags="{{ _tags }}">
+        <a href="{{ _article.url | prepend: site.baseurl }}" class="text-decoration-none link-dark">
+          <p class="mb-4">
+            {{ _article.title }}
+          </p>
+          {% if _article.subtitle %}
+          <p class="blockquote-footer">
+            {{ _article.subtitle }}
+          </p>
+          {% endif %}
+        </a>
+      </div>
+    {%- if forloop.last -%}</section>{%- endif -%}
+{% endfor %}
+</div>

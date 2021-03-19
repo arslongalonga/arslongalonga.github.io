@@ -1,4 +1,40 @@
-  <header class="page-header" role="banner">
-    <h1 class="project-name"><a class="site-title" href="{{ "/" | relative_url }}">{{ site.title }}</a></h1>
-    <h2 class="project-tagline">{{ site.description }}</h2>
-  </header>
+<header class="page-header pb-5 mb-5" role="banner">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a
+        href='{{ "/" }}'
+        class="navbar-brand text-white nav-link text-uppercase border-end"
+      >
+        Crescendo
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarToggler"
+        aria-controls="navbarToggler"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse mb-2 mb-lg-0" id="navbarToggler">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/archive">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="text-center py-3 mt-3">
+      <p class="display-1 text-white">{{ site.title }}</p>
+      <p class="text-white-50 mt-3">{{ site.description }}</p>
+    </div>
+  </div>
+</header>

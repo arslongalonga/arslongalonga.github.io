@@ -1,0 +1,64 @@
+:root {
+  --header-heading-color: #fff;
+  --header-bg-color: #159957;
+  --header-bg-color-secondary: #155799;
+}
+
+/*
+ * Page header
+ */
+.page-header {
+  color: var(--header-heading-color);
+  text-align: center;
+  background-color: var(--header-bg-color);
+  background-image: linear-gradient(
+    120deg,
+    var(--header-bg-color-secondary),
+    var(--header-bg-color)
+  );
+}
+
+/*
+ * Page footer
+ */
+.site-footer {
+  padding: 2.5rem 0;
+  color: #727272;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: 0.05rem solid #e5e5e5;
+}
+
+/*
+ * Post style
+ */
+.post-container h1,
+.post-container h2,
+.post-container h3,
+.post-container h4,
+.post-container h5,
+.post-container h6 {
+  margin: 20px 0 20px;
+  line-height: 1.4;
+  color: var(--bs-green);
+}
+
+.post-container img {
+  margin-bottom: 20px;
+}
+
+/*
+ * Archive Page
+ */
+.tag-button--all.focus {
+  color: #000;
+  background-color: #ffc107;
+  border-color: #ffc107;
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.5);
+}
+.tag-button.focus {
+  color: #000;
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.5);
+}
