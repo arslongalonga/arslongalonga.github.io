@@ -47,6 +47,15 @@
   margin-bottom: 20px;
 }
 
+.post-container blockquote {
+  font-family: KaiTi;
+  padding: 0 30px;
+  margin: 20px;
+  border: dashed var(--bs-green) 2px;
+  border-top: none;
+  border-bottom: none;
+}
+
 /*
  * Archive Page
  */
